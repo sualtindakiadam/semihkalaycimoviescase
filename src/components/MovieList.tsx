@@ -26,7 +26,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
               className="w-32 h-48 object-cover mr-4"
             />
             <div className="flex-1">
-              <h3 className="text-2xl font-semibold text-gray-800 group-hover:text-black">
+              <h3 className="text-2xl font-semibold text-gray-300 group-hover:text-black">
                 {movie.Title}
               </h3>
               <p className="text-gray-600">Year: {movie.Year}</p>

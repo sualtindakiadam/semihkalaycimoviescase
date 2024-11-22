@@ -54,10 +54,9 @@ const Page = () => {
           type="text"
           value={searchQuery}
           onChange={handleSearchChange}
-          className="p-2 w-full border rounded"
+          className="p-2 w-full border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
           placeholder="Search for movies..."
         />
-
       </div>
       <MovieList movies={movies} />
 
