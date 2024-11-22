@@ -23,10 +23,10 @@ const Page = () => {
   const fetchMovies = async () => {
     //http://www.omdbapi.com/?i=tt3896198&apikey=e54fbfeb
     const response = await fetch(
-      `http://www.omdbapi.com/?s=${searchQuery}&page=${currentPage}&apikey=e54fbfeb`
+`http://www.omdbapi.com/?s=${searchQuery}&page=${currentPage}&apikey=e54fbfeb`
     );
     const data = await response.json();
-    console.log("response data *****\n", data.Search)
+    console.log("response data *****\n",data.Search)
 
     if (data.Response === 'True') {
       setMovies(data.Search);
@@ -57,11 +57,11 @@ const Page = () => {
           className="p-2 w-full border rounded"
           placeholder="Search for movies..."
         />
-
+        
       </div>
-      <MovieList movies={movies} />
-
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      <MovieList movies={movies}/>
+     
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
     </div>
   );
 };
