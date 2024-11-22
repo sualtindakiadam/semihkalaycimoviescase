@@ -5,12 +5,15 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // next/navigation kullanımı
 import { MovieType } from 'src/types/types'; // MovieType'ı kendi türlerinizle uyumlu hale getirin
 import Pagination from 'src/components/Pagination';
+import SearchBar from 'src/components/SearchBar';
 const Page = () => {
   const [movies, setMovies] = useState<MovieType[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('Pokemon');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
+
+
 
   useEffect(() => {
     fetchMovies();
@@ -19,10 +22,10 @@ const Page = () => {
   const fetchMovies = async () => {
     //http://www.omdbapi.com/?i=tt3896198&apikey=e54fbfeb
     const response = await fetch(
-      `http://www.omdbapi.com/?s=Batman&page=2/?i=tt3896198&apikey=e54fbfeb&`
+`http://www.omdbapi.com/?s=${searchQuery}&page=${currentPage}&apikey=e54fbfeb`
     );
     const data = await response.json();
-    console.log("response data *****\n",data)
+    console.log("response data *****\n",data.Search)
 
     if (data.Response === 'True') {
       setMovies(data.Search);
@@ -53,6 +56,7 @@ const Page = () => {
           className="p-2 w-full border rounded"
           placeholder="Search for movies..."
         />
+        
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movies.map((movie) => (
