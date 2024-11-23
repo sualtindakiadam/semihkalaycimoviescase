@@ -7,34 +7,57 @@ interface MovieListProps {
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   return (
-    <div className="flex flex-col gap-4">
-      {movies.map((movie) => (
-           <Link  href={{
-            pathname: '/pages/details/'+movie.imdbID,
-            query: {
-              imdbID: movie.imdbID,
-              title: movie.Title,
-              poster: movie.Poster,
-              type: movie.Type,
-              year: movie.Year,
-            },
-          }} key={movie.imdbID}>
-          <div className="flex items-center border rounded-lg p-4 shadow cursor-pointer hover:bg-white group">
-            <img
-              src={movie.Poster !== "N/A" ? movie.Poster : "/no-image.png"}
-              alt={movie.Title}
-              className="w-32 h-48 object-cover mr-4"
-            />
-            <div className="flex-1">
-              <h3 className="text-2xl font-semibold text-gray-300 group-hover:text-black">
-                {movie.Title}
-              </h3>
-              <p className="text-gray-600">Year: {movie.Year}</p>
-              <p className="text-gray-600">IMDB ID: {movie.imdbID}</p>
-            </div>
-          </div>
-        </Link>
-      ))}
+    <div className="overflow-x-auto">
+      <table className="min-w-full table-auto border-collapse">
+        <thead>
+          <tr className="border-b">
+            <th className="py-2 px-4 text-left text-gray-600">Poster</th>
+            <th className="py-2 px-4 text-left text-gray-600">Title</th>
+            <th className="py-2 px-4 text-left text-gray-600">Year</th>
+            <th className="py-2 px-4 text-left text-gray-600">IMDB ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {movies.length === 0 ? (
+            <tr>
+              <td colSpan={4} className="text-center py-4 text-gray-500">
+                List boş
+              </td>
+            </tr>
+          ) : (
+            movies.map((movie) => (
+              <tr key={movie.imdbID} className="border-b hover:bg-gray-100 cursor-pointer">
+                <td className="py-2 px-4">
+                  <img
+                    src={movie.Poster !== "N/A" ? movie.Poster : "/no-image.png"}
+                    alt={movie.Title}
+                    className="w-20 h-28 object-cover"
+                  />
+                </td>
+                <td className="py-2 px-4">
+                  <Link
+                    href={{
+                      pathname: "/pages/details/" + movie.imdbID,
+                      query: {
+                        imdbID: movie.imdbID,
+                        title: movie.Title,
+                        poster: movie.Poster,
+                        type: movie.Type,
+                        year: movie.Year,
+                      },
+                    }}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {movie.Title}
+                  </Link>
+                </td>
+                <td className="py-2 px-4">{movie.Year}</td>
+                <td className="py-2 px-4">{movie.imdbID}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -7,23 +7,35 @@ import { MovieType } from 'src/types/types'; // MovieType'ı kendi türlerinizle
 import Pagination from 'src/components/Pagination';
 import SearchBar from 'src/components/SearchBar';
 import MovieList from 'src/components/MovieList';
+import MovieFilter from 'src/components/MovieFilters';
 const Page = () => {
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [searchQuery, setSearchQuery] = useState('Pokemon');
+  const [movieCat, setMovieCat] = useState<string | null>(null);
+  const [movieYear, setMovieYear] = useState<moment.Moment | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
 
 
-
   useEffect(() => {
     fetchMovies();
-  }, [searchQuery, currentPage]);
+  }, [searchQuery, currentPage,movieCat,movieYear]);
 
   const fetchMovies = async () => {
     //http://www.omdbapi.com/?i=tt3896198&apikey=e54fbfeb
+      let movieFilterAndYear =""
+      if (movieYear !== null) {
+        const year = movieYear.format('YYYY'); // movieYear'ı 'YYYY' formatında alıyoruz
+        movieFilterAndYear += `&y=${year}`;
+      }
+
+      if (movieCat !== null) {
+        movieFilterAndYear += `&type=${movieCat}`;
+      }
+      
     const response = await fetch(
-      `http://www.omdbapi.com/?s=${searchQuery}&page=${currentPage}&apikey=e54fbfeb`
+      `http://www.omdbapi.com/?s=${searchQuery}${movieFilterAndYear}&page=${currentPage}&apikey=e54fbfeb`
     );
     const data = await response.json();
     console.log("response data *****\n", data.Search)
@@ -31,6 +43,10 @@ const Page = () => {
     if (data.Response === 'True') {
       setMovies(data.Search);
       setTotalPages(Math.ceil(data.totalResults / 10));
+    }
+    else{
+      setMovies([]);
+      setTotalPages(0);
     }
   };
 
@@ -49,17 +65,13 @@ const Page = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="mb-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="p-2 w-full border rounded bg-white dark:bg-gray-700 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-          placeholder="Search for movies..."
-        />
-      </div>
+      <SearchBar handleSearchChange={handleSearchChange} searchQuery={searchQuery} />
+      <MovieFilter 
+           movieCat={movieCat}
+           setMovieCat={setMovieCat}
+           movieYear={movieYear}
+           setMovieYear={setMovieYear}/>
       <MovieList movies={movies} />
-
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );

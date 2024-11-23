@@ -17,12 +17,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-blue-500 text-white p-4 text-center">
+        {/* Header */}
+        <header className="bg-blue-500 text-white p-4 text-center fixed top-0 left-0 w-full z-10">
           <h1 className="text-3xl font-bold">Movie Finder</h1>
         </header>
-        <main>{children}</main>
-        <footer className="bg-gray-800 text-white text-center p-4 mt-8">
-          <p>&copy; 2024 Movie Finder. All rights reserved.</p>
+
+        {/* Main Content */}
+        <main className="pt-16 pb-16 max-h-screen overflow-y-auto">
+          {children}
+        </main>
+
+        {/* Footer */}
+        <footer className="bg-gray-800 text-white text-center p-4 mt-8 fixed bottom-0 left-0 w-full z-10">
+          <p>&copy; 2024 Movie Finder. Developed by Semih Kalaycı.</p>
         </footer>
       </body>
     </html>
