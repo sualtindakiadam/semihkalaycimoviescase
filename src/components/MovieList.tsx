@@ -1,9 +1,9 @@
-
 import React from "react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { setSelectedMovie } from "src/redux/selectedMovieSlice";
 import { MovieType } from "src/types/types";
+import '../app/globals.scss'
 interface MovieListProps {
   movies: MovieType[];
 }
@@ -16,34 +16,34 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full table-auto border-collapse">
+    <div className="movieListWrapper">
+      <table className="movieListTable">
         <thead>
-          <tr className="border-b">
-            <th className="py-2 px-4 text-left text-gray-600">Poster</th>
-            <th className="py-2 px-4 text-left text-gray-600">Title</th>
-            <th className="py-2 px-4 text-left text-gray-600">Year</th>
-            <th className="py-2 px-4 text-left text-gray-600">IMDB ID</th>
+          <tr>
+            <th className="movieListHeader">Poster</th>
+            <th className="movieListHeader">Title</th>
+            <th className="movieListHeader">Year</th>
+            <th className="movieListHeader">IMDB ID</th>
           </tr>
         </thead>
         <tbody>
           {movies.length === 0 ? (
             <tr>
-              <td colSpan={4} className="text-center py-4 text-gray-500">
+              <td colSpan={4} className="movieListEmpty">
                 List boş
               </td>
             </tr>
           ) : (
             movies.map((movie) => (
-              <tr key={movie.imdbID} className="border-b hover:bg-gray-100 cursor-pointer">
-                <td className="py-2 px-4">
+              <tr key={movie.imdbID} className="movieListRow">
+                <td className="movieListCell">
                   <img
                     src={movie.Poster !== "N/A" ? movie.Poster : "/no-image.png"}
                     alt={movie.Title}
-                    className="w-20 h-28 object-cover"
+                    className="moviePoster"
                   />
                 </td>
-                <td className="py-2 px-4">
+                <td className="movieListCell">
                   <Link
                     href={{
                       pathname: "/pages/details/" + movie.imdbID,
@@ -55,15 +55,14 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
                         year: movie.Year,
                       },
                     }}
-                    className="text-blue-500 hover:underline"
+                    className="movieListLink"
                     onClick={() => handleSelectMovie(movie)} // Tıklanınca Redux'a yaz
-
                   >
                     {movie.Title}
                   </Link>
                 </td>
-                <td className="py-2 px-4">{movie.Year}</td>
-                <td className="py-2 px-4">{movie.imdbID}</td>
+                <td className="movieListCell">{movie.Year}</td>
+                <td className="movieListCell">{movie.imdbID}</td>
               </tr>
             ))
           )}
@@ -74,4 +73,3 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
 };
 
 export default MovieList;
-

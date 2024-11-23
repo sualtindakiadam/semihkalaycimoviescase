@@ -1,10 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // next/navigation kullanımı
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
-import { setSearchQuery } from 'src/redux/filtersSlice';  // Search query için action
 import { MovieType } from 'src/types/types'; // MovieType'ı kendi türlerinizle uyumlu hale getirin
 import Pagination from 'src/components/Pagination';
 import SearchBar from 'src/components/SearchBar';
@@ -12,12 +10,7 @@ import MovieList from 'src/components/MovieList';
 import MovieFilter from 'src/components/MovieFilters';
 
 const Page = () => {
-  const dispatch = useDispatch();
-
-  // Redux store'dan filtreleri alıyoruz
   const { movieCat, movieYear, searchQuery,currentPage } = useSelector((state: RootState) => state.selectedFilters);
-
-  // Local state'ler
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState(1);
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
-import { setCurrentPage } from 'src/redux/filtersSlice'; 
+import { setCurrentPage } from 'src/redux/filtersSlice';
+import '../app/globals.scss'
 
 interface PaginationProps {
   totalPages: number;
@@ -40,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
       pageNumbers.push(
         <button
           key={1}
-          className="mx-1 px-3 py-1 border bg-white text-blue-500"
+          className="pagination-button first"
           onClick={() => handlePageClick(1)}
         >
           1
@@ -48,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
       );
       if (start > 2) {
         pageNumbers.push(
-          <span key="dots-1" className="mx-1 text-blue-500">...</span>
+          <span key="dots-1" className="pagination-dots">...</span>
         );
       }
     }
@@ -57,9 +58,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
       pageNumbers.push(
         <button
           key={i}
-          className={`mx-1 px-3 py-1 border ${
-            i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-          }`}
+          className={`pagination-button ${i === currentPage ? 'active' : ''}`}
           onClick={() => handlePageClick(i)}
         >
           {i}
@@ -70,13 +69,13 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
     if (end < totalPages) {
       if (end < totalPages - 1) {
         pageNumbers.push(
-          <span key="dots-2" className="mx-1 text-blue-500">...</span>
+          <span key="dots-2" className="pagination-dots">...</span>
         );
       }
       pageNumbers.push(
         <button
           key={totalPages}
-          className="mx-1 px-3 py-1 border bg-white text-blue-500"
+          className="pagination-button last"
           onClick={() => handlePageClick(totalPages)}
         >
           {totalPages}
@@ -88,9 +87,9 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-4">
+    <div className="pagination-wrapper">
       <button
-        className={`mx-1 px-3 py-1 border ${currentPage === 1 ? 'opacity-50' : ''}`}
+        className={`pagination-button prev ${currentPage === 1 ? 'disabled' : ''}`}
         disabled={currentPage === 1}
         onClick={handlePrevClick}
       >
@@ -98,7 +97,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
       </button>
       {renderPageNumbers()}
       <button
-        className={`mx-1 px-3 py-1 border ${currentPage === totalPages ? 'opacity-50' : ''}`}
+        className={`pagination-button next ${currentPage === totalPages ? 'disabled' : ''}`}
         disabled={currentPage === totalPages}
         onClick={handleNextClick}
       >

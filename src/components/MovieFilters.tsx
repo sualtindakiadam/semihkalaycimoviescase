@@ -1,10 +1,10 @@
-// components/MovieFilter.tsx
 import React, { useState } from 'react';
 import moment from 'moment';
 import { DatePicker } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
 import { setMovieCat, setMovieYear } from 'src/redux/filtersSlice';
+import '../app/globals.scss'
 
 const MovieFilter: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,13 +32,13 @@ const MovieFilter: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-between items-center my-5 rounded-lg w-full">
+    <div className="movieFilterWrapper">
       {/* Category Filter */}
-      <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
+      <div className="movieFilterCategory">
         <select
           value={selectedCat ?? "null"}
           onChange={handleCategoryChange}
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-full"
+          className="select-category"
         >
           <option value="null">All</option>
           <option value="movie">Movies</option>
@@ -48,12 +48,12 @@ const MovieFilter: React.FC = () => {
       </div>
 
       {/* Year Filter */}
-      <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
+      <div className="movieFilterYear">
         <DatePicker.YearPicker
           value={selectedYear}
           onChange={handleYearChange}
           format="YYYY"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-full"
+          className="select-year"
           style={{
             boxShadow: 'none', // Remove 3D effect
           }}
@@ -62,10 +62,10 @@ const MovieFilter: React.FC = () => {
       </div>
 
       {/* Apply Filter Button */}
-      <div className="w-full sm:w-auto">
+      <div className="movieFilterButton">
         <button
           onClick={handleApplyFilter}
-          className="w-full sm:w-auto px-6 py-3 mt-4 sm:mt-0 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
+          className="apply-button"
         >
           Apply Filter
         </button>
