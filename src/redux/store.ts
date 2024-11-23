@@ -2,12 +2,10 @@
 
 // store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import filterReducer from './selectedMovieSlice';
 import selectedMovieFiltersReducer from './filtersSlice'
 export const store = configureStore({
   reducer: {
     selectedFilters: selectedMovieFiltersReducer,
-    selectedMovie: filterReducer,
   },
 });
 

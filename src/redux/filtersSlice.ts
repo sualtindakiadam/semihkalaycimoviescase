@@ -10,31 +10,25 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    // Filtreleri ayarlayan action
-    setFilters(state, action: PayloadAction<FiltersType>) {
-      return action.payload;
-    },
-    // Bireysel filtre güncellemeleri
+
     setMovieCat(state, action: PayloadAction<string>) {
       state.movieCat = action.payload;
+      state.currentPage = 1;
     },
     setMovieYear(state, action: PayloadAction<string>) {
       state.movieYear = action.payload;
+      state.currentPage = 1;
     },
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+      state.currentPage = 1;
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
-      state.currentPage = action.payload; // Sayfa numarasını günceller
-    },
-
-    // Filtreleri sıfırlama
-    resetFilters() {
-      return initialState;
+      state.currentPage = action.payload; 
     },
   },
 });
 
-export const { setFilters, setMovieCat, setMovieYear, setSearchQuery,setCurrentPage, resetFilters } = filtersSlice.actions;
+export const {  setMovieCat, setMovieYear, setSearchQuery,setCurrentPage } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

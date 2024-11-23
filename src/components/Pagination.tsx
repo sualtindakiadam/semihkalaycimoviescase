@@ -49,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
       );
       if (start > 2) {
         pageNumbers.push(
-          <span key="dots-1" className="pagination-dots">...</span>
+          <span key="dots-1" className="pagination-dots">......</span>
         );
       }
     }
@@ -69,7 +69,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
     if (end < totalPages) {
       if (end < totalPages - 1) {
         pageNumbers.push(
-          <span key="dots-2" className="pagination-dots">...</span>
+          <span key="dots-2" className="pagination-dots">......</span>
         );
       }
       pageNumbers.push(

@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 // Tema Renkleri
 $light-background: #ffffff;
 $light-foreground: #171717;
@@ -307,7 +306,7 @@ button {
 
 .pagination-button {
   margin: 0 8px;
-  padding: 8px 12px;
+  padding: 8px 2px;
   border: 1px solid #ddd;
   background-color: #fff;
   color: #3b82f6;

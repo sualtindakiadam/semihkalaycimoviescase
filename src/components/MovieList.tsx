@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { setSelectedMovie } from "src/redux/selectedMovieSlice";
 import { MovieType } from "src/types/types";
 import '../app/globals.scss'
 interface MovieListProps {
@@ -9,11 +7,7 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
-  const dispatch = useDispatch();
 
-  const handleSelectMovie = (movie: MovieType) => {
-    dispatch(setSelectedMovie(movie));
-  };
 
   return (
     <div className="movieListWrapper">
@@ -56,7 +50,6 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
                       },
                     }}
                     className="movieListLink"
-                    onClick={() => handleSelectMovie(movie)} // Tıklanınca Redux'a yaz
                   >
                     {movie.Title}
                   </Link>
