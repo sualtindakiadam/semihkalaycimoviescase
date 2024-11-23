@@ -11,23 +11,22 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
   const dispatch = useDispatch();
 
-  // Redux store'dan currentPage'i alıyoruz
   const currentPage = useSelector((state: RootState) => state.selectedFilters.currentPage);
 
   const handlePrevClick = () => {
     if (currentPage > 1) {
-      dispatch(setCurrentPage(currentPage - 1)); // Redux ile sayfa azalt
+      dispatch(setCurrentPage(currentPage - 1)); 
     }
   };
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
-      dispatch(setCurrentPage(currentPage + 1)); // Redux ile sayfa artır
+      dispatch(setCurrentPage(currentPage + 1)); 
     }
   };
 
   const handlePageClick = (page: number) => {
-    dispatch(setCurrentPage(page)); // Redux ile belirli bir sayfaya geçiş
+    dispatch(setCurrentPage(page)); 
   };
 
   const renderPageNumbers = () => {

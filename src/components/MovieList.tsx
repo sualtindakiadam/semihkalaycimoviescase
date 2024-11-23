@@ -7,8 +7,6 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
-
-
   return (
     <div className="movieListWrapper">
       <table className="movieListTable">

@@ -1,6 +1,4 @@
 'use client';
-
-// store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
 import selectedMovieFiltersReducer from './filtersSlice'
 export const store = configureStore({

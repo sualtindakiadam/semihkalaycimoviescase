@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import {  useSelector } from 'react-redux';
 import { RootState } from 'src/redux/store';
-import { MovieType } from 'src/types/types'; // MovieType'ı kendi türlerinizle uyumlu hale getirin
+import { MovieType } from 'src/types/types'; 
 import Pagination from 'src/components/Pagination';
 import SearchBar from 'src/components/SearchBar';
 import MovieList from 'src/components/MovieList';
@@ -28,12 +28,10 @@ const Page = () => {
     if (movieCat) {
       movieFilterAndYear += `&type=${movieCat}`;
     }
-
     const response = await fetch(
       `http://www.omdbapi.com/?s=${searchQuery}${movieFilterAndYear}&page=${currentPage}&apikey=e54fbfeb`
     );
     const data = await response.json();
-    console.log('response data *****\n', data.Search);
 
     if (data.Response === 'True') {
       setMovies(data.Search);
@@ -43,7 +41,6 @@ const Page = () => {
       setTotalPages(0);
     }
   };
-
 
   return (
     <div className="container mx-auto p-4">

@@ -12,7 +12,6 @@ const MovieFilter: React.FC = () => {
 
   const currentYear = moment().year();
 
-  // Local state for managing temporary selection before applying
   const [selectedCat, setSelectedCat] = useState<string | null>(movieCat || null);
   const [selectedYear, setSelectedYear] = useState<moment.Moment | null>(
     movieYear ? moment(movieYear, "YYYY") : null
@@ -33,7 +32,6 @@ const MovieFilter: React.FC = () => {
 
   return (
     <div className="movieFilterWrapper">
-      {/* Category Filter */}
       <div className="movieFilterCategory">
         <select
           value={selectedCat ?? "null"}
@@ -47,21 +45,16 @@ const MovieFilter: React.FC = () => {
         </select>
       </div>
 
-      {/* Year Filter */}
       <div className="movieFilterYear">
         <DatePicker.YearPicker
           value={selectedYear}
           onChange={handleYearChange}
           format="YYYY"
           className="select-year"
-          style={{
-            boxShadow: 'none', // Remove 3D effect
-          }}
-          disabledDate={(current) => current && current.year() > currentYear} // Disable future years
+          disabledDate={(current) => current && current.year() > currentYear} 
         />
       </div>
 
-      {/* Apply Filter Button */}
       <div className="movieFilterButton">
         <button
           onClick={handleApplyFilter}

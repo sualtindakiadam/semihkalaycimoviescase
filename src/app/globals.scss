@@ -105,7 +105,7 @@ body {
 
 /* Header */
 header {
-  background-color: #3b82f6; // Blue color
+  background-color: #3b82f6; 
   color: white;
   padding: 16px;
   text-align: center;
@@ -188,16 +188,28 @@ footer p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items:center;
   margin: 20px 0;
   border-radius: 8px;
   width: 100%;
+  height: 50;
 }
 
 .movieFilterCategory,
 .movieFilterYear,
 .movieFilterButton {
   width: 100%;
-  margin-bottom: 16px;
+  height: 100%;
+  align-items:center;
+}
+
+.apply-button,
+.select-category,
+.select-year{
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
 }
 
 @media (min-width: 640px) {

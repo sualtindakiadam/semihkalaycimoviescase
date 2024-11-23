@@ -5,14 +5,14 @@ import { MovieType } from 'src/types/types';
 export default async function Page({ params }: { params: { imdbID: string } }) {
   const imdbID = params.imdbID;
 
-  // API'den veya veri kaynağından film bilgilerini çekebilirsiniz
+  
   const response = await fetch(
     `http://www.omdbapi.com/?i=${imdbID}&apikey=e54fbfeb`
   );
   const movie: MovieType = await response.json();
 
   if (!movie) {
-    notFound();  // Eğer film bulunamazsa 404 sayfasına yönlendirir
+    notFound(); 
   }
 
   return (
