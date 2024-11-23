@@ -1,41 +1,41 @@
-import React from "react";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/redux/store';
+import { setCurrentPage } from 'src/redux/filtersSlice'; 
 
 interface PaginationProps {
-  currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
+  const dispatch = useDispatch();
+
+  // Redux store'dan currentPage'i alıyoruz
+  const currentPage = useSelector((state: RootState) => state.selectedFilters.currentPage);
+
   const handlePrevClick = () => {
     if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+      dispatch(setCurrentPage(currentPage - 1)); // Redux ile sayfa azalt
     }
   };
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+      dispatch(setCurrentPage(currentPage + 1)); // Redux ile sayfa artır
     }
   };
 
   const handlePageClick = (page: number) => {
-    onPageChange(page);
+    dispatch(setCurrentPage(page)); // Redux ile belirli bir sayfaya geçiş
   };
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    const range = 2; // Ne kadar öncesi ve sonrası görünsün
+    const range = 2;
 
-    // Başlangıç ve bitiş sayfası için gerekli aralıkları belirle
     const start = Math.max(1, currentPage - range);
     const end = Math.min(totalPages, currentPage + range);
 
-    // İlk sayfa
     if (start > 1) {
       pageNumbers.push(
         <button
@@ -53,13 +53,12 @@ const Pagination: React.FC<PaginationProps> = ({
       }
     }
 
-    // Orta sayfalar
     for (let i = start; i <= end; i++) {
       pageNumbers.push(
         <button
           key={i}
           className={`mx-1 px-3 py-1 border ${
-            i === currentPage ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+            i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
           }`}
           onClick={() => handlePageClick(i)}
         >
@@ -68,7 +67,6 @@ const Pagination: React.FC<PaginationProps> = ({
       );
     }
 
-    // Son sayfa
     if (end < totalPages) {
       if (end < totalPages - 1) {
         pageNumbers.push(
@@ -92,7 +90,7 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="flex items-center justify-center mt-4">
       <button
-        className={`mx-1 px-3 py-1 border ${currentPage === 1 ? "opacity-50" : ""}`}
+        className={`mx-1 px-3 py-1 border ${currentPage === 1 ? 'opacity-50' : ''}`}
         disabled={currentPage === 1}
         onClick={handlePrevClick}
       >
@@ -100,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
       </button>
       {renderPageNumbers()}
       <button
-        className={`mx-1 px-3 py-1 border ${currentPage === totalPages ? "opacity-50" : ""}`}
+        className={`mx-1 px-3 py-1 border ${currentPage === totalPages ? 'opacity-50' : ''}`}
         disabled={currentPage === totalPages}
         onClick={handleNextClick}
       >

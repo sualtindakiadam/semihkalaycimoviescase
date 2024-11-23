@@ -1,14 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "src/redux/store";
+import { setSearchQuery } from "src/redux/filtersSlice";
 
-interface SearchBarProps {
-  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  searchQuery:string
-}
+const SearchBar: React.FC = () => {
+  const dispatch = useDispatch();
 
-const SearchBar: React.FC<SearchBarProps> = ({ handleSearchChange,searchQuery }) => {
+  // Redux store'dan searchQuery değerini alıyoruz
+  const searchQuery = useSelector((state: RootState) => state.selectedFilters.searchQuery);
+
+  // Search değişikliğinde Redux store'u güncelleyen fonksiyon
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(event.target.value));
+  };
+
   return (
-    <div className="w-full my-5  shadow-md">
-      <div className="relative flex items-center  mx-auto">
+    <div className="w-full my-5 shadow-md">
+      <div className="relative flex items-center mx-auto">
         <input
           type="text"
           onChange={handleSearchChange}

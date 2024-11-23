@@ -1,11 +1,20 @@
+
 import React from "react";
 import Link from "next/link";
-
+import { useDispatch } from "react-redux";
+import { setSelectedMovie } from "src/redux/selectedMovieSlice";
+import { MovieType } from "src/types/types";
 interface MovieListProps {
-  movies: any[];
+  movies: MovieType[];
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
+  const dispatch = useDispatch();
+
+  const handleSelectMovie = (movie: MovieType) => {
+    dispatch(setSelectedMovie(movie));
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto border-collapse">
@@ -47,6 +56,8 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
                       },
                     }}
                     className="text-blue-500 hover:underline"
+                    onClick={() => handleSelectMovie(movie)} // Tıklanınca Redux'a yaz
+
                   >
                     {movie.Title}
                   </Link>
@@ -63,3 +74,4 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
 };
 
 export default MovieList;
+

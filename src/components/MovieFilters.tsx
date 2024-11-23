@@ -2,27 +2,24 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { DatePicker } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'src/redux/store';
+import { setMovieCat, setMovieYear } from 'src/redux/filtersSlice';
 
-interface MovieFilterProps {
-  movieCat: string | null;
-  setMovieCat: (category: string | null) => void;
-  movieYear: moment.Moment | null;
-  setMovieYear: (year: moment.Moment | null) => void;
-}
+const MovieFilter: React.FC = () => {
+  const dispatch = useDispatch();
+  const { movieCat, movieYear } = useSelector((state: RootState) => state.selectedFilters);
 
-const MovieFilter: React.FC<MovieFilterProps> = ({
-  movieCat,
-  setMovieCat,
-  movieYear,
-  setMovieYear,
-}) => {
   const currentYear = moment().year();
 
-  const [selectedCat, setSelectedCat] = useState(movieCat);
-  const [selectedYear, setSelectedYear] = useState(movieYear);
+  // Local state for managing temporary selection before applying
+  const [selectedCat, setSelectedCat] = useState<string | null>(movieCat || null);
+  const [selectedYear, setSelectedYear] = useState<moment.Moment | null>(
+    movieYear ? moment(movieYear, "YYYY") : null
+  );
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCat(e.target.value);
+    setSelectedCat(e.target.value === "null" ? null : e.target.value);
   };
 
   const handleYearChange = (value: moment.Moment | null) => {
@@ -30,25 +27,27 @@ const MovieFilter: React.FC<MovieFilterProps> = ({
   };
 
   const handleApplyFilter = () => {
-    setMovieCat(selectedCat)
-    setMovieYear(selectedYear)
+    dispatch(setMovieCat(selectedCat || ""));
+    dispatch(setMovieYear(selectedYear ? selectedYear.format("YYYY") : ""));
   };
 
   return (
     <div className="flex flex-wrap justify-between items-center my-5 rounded-lg w-full">
+      {/* Category Filter */}
       <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
         <select
           value={selectedCat ?? "null"}
           onChange={handleCategoryChange}
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-full"
         >
-          <option value="null">All</option>  
+          <option value="null">All</option>
           <option value="movie">Movies</option>
           <option value="series">TV Series</option>
           <option value="episode">TV Episodes</option>
         </select>
       </div>
 
+      {/* Year Filter */}
       <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
         <DatePicker.YearPicker
           value={selectedYear}
@@ -56,13 +55,13 @@ const MovieFilter: React.FC<MovieFilterProps> = ({
           format="YYYY"
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-full"
           style={{
-            boxShadow: 'none', // Üç boyutlu efekti kaldırıyoruz
+            boxShadow: 'none', // Remove 3D effect
           }}
-          disabledDate={(current) => current && current.year() > currentYear} // Geçerli yıldan sonra olan yılları devre dışı bırakır
-
+          disabledDate={(current) => current && current.year() > currentYear} // Disable future years
         />
       </div>
 
+      {/* Apply Filter Button */}
       <div className="w-full sm:w-auto">
         <button
           onClick={handleApplyFilter}

@@ -1,29 +1,6 @@
 import { notFound } from 'next/navigation';
 import styles from './MovieDetails.module.css';
-
-interface Movie {
-  Poster: string;
-  Title: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
-  Director: string;
-  Actors: string;
-  Awards: string;
-  Genre: string;
-  Language: string;
-  Metascore: string;
-  Plot: string;
-  Rated: string;
-  Ratings: { Source: string; Value: string }[];
-  Released: string;
-  Runtime: string;
-  Writer: string;
-  Country: string;
-  imdbRating: string;
-  imdbVotes: string;
-  totalSeasons: string;
-}
+import { MovieType } from 'src/types/types';
 
 export default async function Page({ params }: { params: { imdbID: string } }) {
   const imdbID = params.imdbID;
@@ -32,7 +9,7 @@ export default async function Page({ params }: { params: { imdbID: string } }) {
   const response = await fetch(
     `http://www.omdbapi.com/?i=${imdbID}&apikey=e54fbfeb`
   );
-  const movie: Movie = await response.json();
+  const movie: MovieType = await response.json();
 
   if (!movie) {
     notFound();  // Eğer film bulunamazsa 404 sayfasına yönlendirir
