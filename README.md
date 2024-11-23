@@ -1,3 +1,14 @@
+1 - npm paketlerini yüklemelisiniz  
+
+proje dosyasını açtıktan sonra terminale girerek 
+- "pnpm install" komutunu çalıştırıyoruz. (npm install da kullanılabilir)
+    NPM: Her proje bağımsız olarak tüm bağımlılıkları indirir ve projenin node_modules klasörüne yerleştirir. Bu, disk alanının fazla kullanılmasına neden olabilir ve bazı durumlarda gereksiz tekrarlar oluşturur.
+    PNPM: node_modules klasöründe sembolik bağlantılar kullanarak bağımlılıkları merkezi bir alanda saklar. Bu, disk alanını daha verimli kullanmak anlamına gelir ve projeler arasında paylaşılan bağımlılıkları aynı yerden alır.
+- gerekli indirmeler yapıldıktan sonra "pnpm dev" komutu ile pojeyi başlatabilirsiniz
+- proje başlatıldıktan sonra tarayıcınız üzerinden, arama çubuğuna "http://localhost:3000" yazarak projenin çalıştığı local port a ulaşabilirsiniz 
+
+Aşağıda da Projemizi ilk oluşturduğumuzda React tarafından oluşan kendi README bilgilendirmesini bulabilirsiniz.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
